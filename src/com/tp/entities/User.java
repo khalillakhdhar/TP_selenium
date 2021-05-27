@@ -1,5 +1,7 @@
 package com.tp.entities;
 
+import java.sql.SQLException;
+
 public class User {
 private int id;
 private String nom,prenom,email,password;
@@ -64,7 +66,16 @@ public String toString() {
 }
 
 
+public void ajout() {
+    try {
+//TODO add your handling code here:
+        Connexion c = new Connexion();
+        java.sql.PreparedStatement statement = c.conn.prepareStatement("INSERT INTO `user`( `nom`, `prenom`, `email`, `password`, `age`, `score`) VALUES('" + this.getNom()+ "','" + this.getPrenom() + "','" + this.getEmail() + "','" + this.getPassword() + "','" + this.getAge() + "'),,'" + this.getScore() + "'");
+        statement.executeUpdate();
+    } catch (SQLException ex) {
+                    System.out.println(ex);
 
-
+    }
+}
 
 }
