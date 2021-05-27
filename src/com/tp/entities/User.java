@@ -1,9 +1,10 @@
 package com.tp.entities;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
+
 
 public class User {
 private int id;

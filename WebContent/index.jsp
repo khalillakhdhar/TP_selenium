@@ -43,8 +43,12 @@
   <input type="submit"  class="btn btn-primary" value="envoyer">
 </div>
 </div>
-
-
+<% if(request.getParameter("message")!=null)
+{
+	
+	%>
+	<h3><%=request.getAttribute("message") %></h3>
+<% } %>
 
 </form>
     </div>
