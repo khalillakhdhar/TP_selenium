@@ -2,6 +2,9 @@ package com.tp.entities;
 
 import java.sql.SQLException;
 
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+
 public class User {
 private int id;
 private String nom,prenom,email,password;
@@ -65,12 +68,27 @@ public String toString() {
 			+ ", score=" + score + ", age=" + age + "]";
 }
 
+public boolean authentifier() throws SQLException
+{
+Connexion c = new Connexion(); //appel de connexion à la BD
+  PreparedStatement pst; 
+  pst = (PreparedStatement) c.conn.prepareStatement("SELECT * FROM `user` WHERE `email`='"+this.getEmail()+"' AND password='"+this.getPassword()+"' "); // lister les admins
+  pst.executeQuery(); // lister les admins
+  ResultSet rs = (ResultSet) pst.executeQuery(); // stocker le résultat dans un resultset
+  if(rs.next()) {
+     // System.out.println(rs.getString("nom")); //teste d’affichage
+     return true;
+  }
+  else
+      return false;
 
+
+}
 public void ajout() {
     try {
 //TODO add your handling code here:
         Connexion c = new Connexion();
-        java.sql.PreparedStatement statement = c.conn.prepareStatement("INSERT INTO `user`( `nom`, `prenom`, `email`, `password`, `age`, `score`) VALUES('" + this.getNom()+ "','" + this.getPrenom() + "','" + this.getEmail() + "','" + this.getPassword() + "','" + this.getAge() + "'),,'" + this.getScore() + "'");
+        java.sql.PreparedStatement statement = c.conn.prepareStatement("INSERT INTO `user`( `nom`, `prenom`, `email`, `password`, `age`, `score`) VALUES('" + this.getNom()+ "','" + this.getPrenom() + "','" + this.getEmail() + "','" + this.getPassword() + "','" + this.getAge() + "','" + this.getScore() + "')");
         statement.executeUpdate();
     } catch (SQLException ex) {
                     System.out.println(ex);
